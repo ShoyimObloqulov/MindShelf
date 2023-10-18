@@ -19,13 +19,14 @@ class BaseCreate extends Component
         $validated = $this->validate([
             'name' => 'required|min:3',
             'desc' => 'required|min:3',
-            'status' => 'required',
             'file' => 'file|mimes:pdf,doc,docx',
         ]);
 
         $filename = md5(time()). '.' . $this->file->getClientOriginalExtension();
         $this->file->storeAs('uploads', $filename);
+
         $this->file = null;
+
         \App\Models\Base::create([
             'name'  => $this->name,
             'desc'  => $this->desc,
